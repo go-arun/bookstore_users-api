@@ -1,7 +1,9 @@
 package users
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	//"encoding/json"
 	//"fmt"
@@ -32,9 +34,21 @@ func CreateUser(c *gin.Context) {
 
 //GetUser comment-todo
 func GetUser(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "implement me!")
+	//c.String(http.StatusNotImplemented, "implement me!")
+	userId, userErr := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	fmt.Println(userId,c.Param("first_name")) //TestCode
+	if userErr != nil {
+		err := errors.NewBadRequestError("invalid user id- Should be a nummber")
+		c.JSON(err.Status, err)
+		return
+	}
+
+	user, getErr := services.GetUser(userId)
+	if getErr != nil {
+		c.JSON(getErr.Status, getErr)
+		return
+	}
+	c.JSON(http.StatusOK, user)
+
 }
 
-// func SearchUser(c *gin.Context) {
-// 	c.String(http.StatusNotImplemented, "implement me!")
-// }

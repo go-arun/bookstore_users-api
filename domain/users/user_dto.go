@@ -1,6 +1,9 @@
 package users
 
-import "strings"
+import (
+	"strings"
+	"github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/utils"
+)
 
 //User strcut
 type User struct {
@@ -14,7 +17,7 @@ type User struct {
 func (user *User) Validate() *errors.RestErr {
 	user.Email = strings.TrimSpace(strings.ToLower(user.Email))
 	if user.Email == "" {
-		return nil, errors.NewBadRequestError("Invalid email address")
+		return errors.NewBadRequestError("Invalid email address")
 	}
 	return nil
 }
