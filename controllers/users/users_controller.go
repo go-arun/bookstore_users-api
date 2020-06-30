@@ -11,7 +11,7 @@ import (
 
 	"github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/domain/users"
 	"github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/services"
-	errors "github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/utils"
+	"github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/utils/errors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -36,7 +36,7 @@ func CreateUser(c *gin.Context) {
 func GetUser(c *gin.Context) {
 	//c.String(http.StatusNotImplemented, "implement me!")
 	userId, userErr := strconv.ParseInt(c.Param("user_id"), 10, 64)
-	fmt.Println(userId,c.Param("first_name")) //TestCode
+	fmt.Println(userId, c.Param("first_name")) //TestCode
 	if userErr != nil {
 		err := errors.NewBadRequestError("invalid user id- Should be a nummber")
 		c.JSON(err.Status, err)
@@ -51,4 +51,3 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 
 }
-

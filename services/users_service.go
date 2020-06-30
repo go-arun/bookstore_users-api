@@ -2,9 +2,10 @@ package services
 
 import (
 	"github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/domain/users"
-	"github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/utils"
+	"github.com/arun/Documents/workspaces/golang/src/github.com/kcarun/bookstore_users-api/utils/errors"
 )
-func GetUser(userId int64)(*users.User,*errors.RestErr){
+
+func GetUser(userId int64) (*users.User, *errors.RestErr) {
 	result := &users.User{Id: userId}
 	if err := result.Get(); err != nil {
 		return nil, err
@@ -16,9 +17,8 @@ func CreateUser(user users.User) (*users.User, *errors.RestErr) {
 		return nil, err
 	}
 	if err := user.Save(); err != nil {
-		return nil,err
+		return nil, err
 	}
-	return &user ,nil
+	return &user, nil
 
-	 
 }
